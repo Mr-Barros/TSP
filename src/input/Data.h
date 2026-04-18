@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Singleton.h"
+#include "../util/Singleton.h"
 
 #include <string>
 #include <vector>
 
-#include "Point.h"
+#include "../util/Point.h"
 
 class Data : public Singleton<Data>
 {

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <format>
 
-#include "Loader.h"
-#include "Data.h"
+#include "input/Loader.h"
+#include "input/Data.h"
 
-#include "Solver.h"
+#include "algorithm/Solver.h"
 
-#include "Timer.h"
+#include "util/Timer.h"
 
 using namespace std;
 

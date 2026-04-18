@@ -2,7 +2,7 @@
 
 #include <format>
 
-#include "Data.h"
+#include "../input/Data.h"
 
 using namespace std;
 

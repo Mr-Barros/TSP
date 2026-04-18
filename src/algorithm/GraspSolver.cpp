@@ -4,9 +4,9 @@
 #include <iostream>
 #include <algorithm>
 
-#include "Data.h"
+#include "../input/Data.h"
 
-#include "Random.h"
+#include "../util/Random.h"
 
 using namespace std;
  

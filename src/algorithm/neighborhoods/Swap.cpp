@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "Data.h"
-#include "Solution.h"
+#include "../../input/Data.h"
+#include "../../output/Solution.h"
 
 using namespace std;
 

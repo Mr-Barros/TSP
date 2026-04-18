@@ -11,7 +11,7 @@ using namespace std;
 
 bool Solver::solve()
 {
-	Type type = VariableNeighborhoodDecent;
+	constexpr Type type = VariableNeighborhoodDecent;
 
 	AbstractSolver* solver = nullptr;
 	switch (type)
@@ -23,7 +23,7 @@ bool Solver::solve()
 	default: throw runtime_error("Unknown solver type");
 	}
 
-	bool ret = solver->solve();
+	const bool ret = solver->solve();
 	if (ret) solution = solver->solution;
 	delete solver;
 

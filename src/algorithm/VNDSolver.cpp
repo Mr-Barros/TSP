@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "Neighborhood.h"
-#include "Shift.h"
-#include "Swap.h"
+#include "neighborhoods/Neighborhood.h"
+#include "neighborhoods/Shift.h"
+#include "neighborhoods/Swap.h"
 
 #include "NearestNeighborSolver.h"
 

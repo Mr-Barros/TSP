@@ -17,6 +17,6 @@ private:
 	std::ifstream fin;
 
 	void readCoords();
-	void buildEdges();
-	void readBKS();
+	void buildEdges() const;
+	void readBKS() const;
 };

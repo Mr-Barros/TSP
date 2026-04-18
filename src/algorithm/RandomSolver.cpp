@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "Data.h"
-#include "Random.h"
+#include "../input/Data.h"
+#include "../util/Random.h"
 
 using namespace std;
 

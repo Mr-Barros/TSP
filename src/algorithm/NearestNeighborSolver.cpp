@@ -3,13 +3,13 @@
 #include <vector>
 #include <iostream>
 
-#include "Data.h"
+#include "../input/Data.h"
 
 using namespace std;
 
 bool NearestNeighborSolver::solve()
 {
-	vector<bool> visited(data.dimension, false);
+	vector<bool> visited(data.dimension);
 
 	solution.nodes.push_back(0);
 	visited[0] = true;

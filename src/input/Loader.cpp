@@ -1,6 +1,7 @@
 #include "Loader.h"
 
 #include <fstream>
+#include <cmath>
 
 #include "Data.h"
 
@@ -48,7 +49,7 @@ void Loader::readCoords()
 	}
 }
 
-void Loader::buildEdges()
+void Loader::buildEdges() const
 {
 	data.costs.resize(data.dimension);
 	for (int i = 0; i < data.dimension; i++)
@@ -62,40 +63,40 @@ void Loader::buildEdges()
 			{
 				if (data.type == "EUC_2D")
 				{
-					double dx = data.coords[i].x - data.coords[j].x;
-					double dy = data.coords[i].y - data.coords[j].y;
-					data.costs[i][j] = (int)(sqrt(dx * dx + dy * dy) + 0.5);
+					const double dx = data.coords[i].x - data.coords[j].x;
+					const double dy = data.coords[i].y - data.coords[j].y;
+					data.costs[i][j] = lround(sqrt(dx * dx + dy * dy));
 				}
 				else if (data.type == "GEO")
 				{
-					double PI = 3.141592;
+					constexpr double PI = 3.141592;
 
-					int deg = (int)(data.coords[i].x + 0.5);
+					int deg =  lround(data.coords[i].x);
 					double min = data.coords[i].x - deg;
-					double lat1 = PI * (deg + 5.0 * min / 3.0) / 180.0;
-					deg = (int)(data.coords[i].y + 0.5);
+					const double lat1 = PI * (deg + 5.0 * min / 3.0) / 180.0;
+					deg = lround(data.coords[i].y);
 					min = data.coords[i].y - deg;
-					double lon1 = PI * (deg + 5.0 * min / 3.0) / 180.0;
+					const double lon1 = PI * (deg + 5.0 * min / 3.0) / 180.0;
 
-					deg = (int)(data.coords[j].x + 0.5);
+					deg = lround(data.coords[j].x);
 					min = data.coords[j].x - deg;
-					double lat2 = PI * (deg + 5.0 * min / 3.0) / 180.0;
-					deg = (int)(data.coords[j].y + 0.5);
+					const double lat2 = PI * (deg + 5.0 * min / 3.0) / 180.0;
+					deg = lround(data.coords[j].y);
 					min = data.coords[j].y - deg;
-					double lon2 = PI * (deg + 5.0 * min / 3.0) / 180.0;
+					const double lon2 = PI * (deg + 5.0 * min / 3.0) / 180.0;
 
-					double RRR = 6378.388;
-					double q1 = cos(lon1 - lon2);
-					double q2 = cos(lat1 - lat2);
-					double q3 = cos(lat1 + lat2);
-					data.costs[i][j] = (int)(RRR * acos(0.5 * ((1.0 + q1) * q2 - (1.0 - q1) * q3)) + 1.0);
+					constexpr double RRR = 6378.388;
+					const double q1 = cos(lon1 - lon2);
+					const double q2 = cos(lat1 - lat2);
+					const double q3 = cos(lat1 + lat2);
+					data.costs[i][j] = static_cast<int>(RRR * acos(0.5 * ((1.0 + q1) * q2 - (1.0 - q1) * q3)) + 1.0);
 				}
 			}
 		}
 	}
 }
 
-void Loader::readBKS()
+void Loader::readBKS() const
 {
 	ifstream fin_bks("data/bks.txt");
 	if (!fin_bks.is_open()) return;
@@ -109,6 +110,6 @@ void Loader::readBKS()
 			fin_bks >> data.bks;
 			break;
 		}
-		else if (fin_bks.eof()) break;
+		if (fin_bks.eof()) break;
 	}
 }

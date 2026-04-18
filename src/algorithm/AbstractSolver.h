@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Solution.h"
+#include "../output/Solution.h"
 
 class Data;
 
@@ -8,6 +8,7 @@ class AbstractSolver
 {
 public:
 	AbstractSolver();
+	virtual ~AbstractSolver() = default;
 
 	enum Type
 	{

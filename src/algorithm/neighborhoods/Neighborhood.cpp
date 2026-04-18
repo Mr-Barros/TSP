@@ -1,5 +1,5 @@
 #include "Neighborhood.h"
 
-#include "Data.h"
+#include "../../input/Data.h"
 
 Neighborhood::Neighborhood() : data(Data::getInstance()) {}
