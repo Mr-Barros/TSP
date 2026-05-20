@@ -25,4 +25,9 @@ private:
     std::set<int> oddDegreeNodes(std::vector<std::vector<Edge>>& graph);
 
     std::vector<std::vector<Edge>> perfectMatching(std::vector<std::vector<Edge>>& graph, std::set<int> nodes);
+
+    std::vector<std::vector<Edge>> combineIntoMultigraph(
+        std::vector<std::vector<Edge>>& graph1,
+        std::vector<std::vector<Edge>>& graph2
+    );
 };

@@ -81,3 +81,23 @@ vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(vec
 
     return matching;
 }
+
+std::vector<std::vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIntoMultigraph(
+    std::vector<std::vector<Edge>> &graph1,
+    std::vector<std::vector<Edge>> &graph2
+) {
+    int size = max(graph1.size(), graph2.size());
+    vector<vector<Edge>> multigraph(size);
+
+    for (int u = 0; u < graph1.size(); u++) {
+        for (Edge edge : graph1[u]) {
+            multigraph[u].push_back(edge);
+        }
+    }
+
+    for (int u = 0; u < graph2.size(); u++) {
+        for (Edge edge : graph2[u]) {
+            multigraph[u].push_back(edge);
+        }
+    }
+}
