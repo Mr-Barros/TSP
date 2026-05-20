@@ -20,7 +20,8 @@ private:
         bool operator>(const Edge& other) const;
     };
 
-    std::vector<std::vector<int>> minimumSpanningTree(std::vector<std::vector<int>>& graph);
+    std::vector<std::vector<Edge>> minimumSpanningTree(std::vector<std::vector<Edge>>& graph);
 
-    std::set<int> oddDegreeNodes(std::vector<std::vector<int>>& graph);
+    std::set<int> oddDegreeNodes(std::vector<std::vector<Edge>>& graph);
+
 };
