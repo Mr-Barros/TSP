@@ -56,3 +56,28 @@ set<int> ChristofidesSolver::oddDegreeNodes(vector<vector<Edge>>& graph)
     return nodes;
 }
 
+vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(vector<vector<Edge>>& graph, set<int> nodes)
+{
+    vector<vector<Edge>> matching(graph.size());
+    priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
+
+    for (int u : nodes)
+        for (Edge edge : graph[u])
+            if (u < edge.to and nodes.contains(edge.to))
+                edges.push(edge);
+
+    while (!edges.empty())
+    {
+        Edge e = edges.top();
+        edges.pop();
+
+        if (nodes.contains(e.from) and nodes.contains(e.to)) {
+            matching[e.from].push_back(Edge(e.from, e.to, e.cost));
+            matching[e.to].push_back(Edge(e.to, e.from, e.cost));
+            nodes.erase(e.from);
+            nodes.erase(e.to);
+        }
+    }
+
+    return matching;
+}

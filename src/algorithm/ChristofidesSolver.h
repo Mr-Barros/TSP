@@ -24,4 +24,5 @@ private:
 
     std::set<int> oddDegreeNodes(std::vector<std::vector<Edge>>& graph);
 
+    std::vector<std::vector<Edge>> perfectMatching(std::vector<std::vector<Edge>>& graph, std::set<int> nodes);
 };
