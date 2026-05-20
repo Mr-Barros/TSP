@@ -37,4 +37,6 @@ add_executable(tsp
         src/algorithm/VNDSolver.cpp
         src/algorithm/VNDSolver.h
         src/input/Parameters.cpp
-        src/input/Parameters.h)
+        src/input/Parameters.h
+        src/algorithm/SimulatedAnnealingSolver.cpp
+        src/algorithm/SimulatedAnnealingSolver.h)
