@@ -16,7 +16,7 @@ bool ChristofidesSolver::Edge::operator>(const Edge &other) const
 
 vector<vector<int>> ChristofidesSolver::minimumSpanningTree(vector<vector<int>>& graph)
 {
-    vector<vector<int>> mst(graph.size());
+    vector<vector<int>> mst(graph.size(), vector<int>(graph.size(), -1));
     priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
     vector<bool> included(graph.size(), false);
 
@@ -43,4 +43,20 @@ vector<vector<int>> ChristofidesSolver::minimumSpanningTree(vector<vector<int>>&
     }
 
     return mst;
+}
+
+set<int> ChristofidesSolver::oddDegreeNodes(vector<vector<int>>& graph)
+{
+    set<int> nodes;
+    for (int u = 0; u < graph.size(); u++)
+    {
+        int degree = 0;
+        for (int v = 0; v < graph.size(); v++)
+            if (graph[u][v] > 0)
+                degree++;
+
+        if (degree % 2 == 1)
+            nodes.insert(u);
+    }
+    return nodes;
 }

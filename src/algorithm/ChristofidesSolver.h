@@ -2,6 +2,8 @@
 
 #include "AbstractSolver.h"
 
+#include <set>
+
 class ChristofidesSolver: public AbstractSolver
 {
 public:
@@ -19,4 +21,6 @@ private:
     };
 
     std::vector<std::vector<int>> minimumSpanningTree(std::vector<std::vector<int>>& graph);
+
+    std::set<int> oddDegreeNodes(std::vector<std::vector<int>>& graph);
 };
