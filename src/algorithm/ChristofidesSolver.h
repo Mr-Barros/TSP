@@ -40,5 +40,5 @@ private:
 
     std::vector<int> findEulerTour(std::vector<std::vector<Edge>>& graph);
 
-    std::vector<int> convertIntoTSPTour(std::vector<int> eulerTour);
+    std::vector<int> convertIntoTSPTour(std::vector<int>& eulerTour);
 };

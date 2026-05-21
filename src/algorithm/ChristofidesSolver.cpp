@@ -1,12 +1,29 @@
 #include "ChristofidesSolver.h"
 
+#include <iostream>
+
 #include "input/Data.h"
 
 using namespace std;
 
 bool ChristofidesSolver::solve()
 {
-    return false;
+    vector<vector<Edge>> graph;
+    for (int from = 0; from < data.dimension; from++)
+        for (int to = 0; to < data.dimension; to++)
+            if (data.costs[from][to] > 0)
+                graph[from].push_back(Edge(from, to, data.costs[from][to]));
+
+    vector<vector<Edge>> mst = minimumSpanningTree(graph);
+    set<int> nodes = oddDegreeNodes(mst);
+    vector<vector<Edge>> matching = perfectMatching(graph, nodes);
+    vector<vector<Edge>> multigraph = combineIntoMultigraph(mst, matching);
+    vector<int> eulerTour = findEulerTour(multigraph);
+    solution.nodes = convertIntoTSPTour(eulerTour);
+
+    solution.evaluate();
+    cout << "ChristofidesSolver: " << solution << endl;
+    return true;
 }
 
 bool ChristofidesSolver::Edge::operator>(const Edge &other) const
@@ -56,8 +73,10 @@ set<int> ChristofidesSolver::oddDegreeNodes(vector<vector<Edge>>& graph)
     return nodes;
 }
 
-vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(vector<vector<Edge>>& graph, set<int> nodes)
-{
+vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(
+    vector<vector<Edge>>& graph,
+    set<int> nodes
+) {
     vector<vector<Edge>> matching(graph.size());
     priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
 
@@ -130,7 +149,7 @@ vector<int> ChristofidesSolver::findEulerTour(vector<vector<Edge>> &graph)
     return eulerTour;
 }
 
-vector<int> ChristofidesSolver::convertIntoTSPTour(vector<int> eulerTour)
+vector<int> ChristofidesSolver::convertIntoTSPTour(vector<int>& eulerTour)
 {
     vector<int> tspTour;
     set<int> visited;
