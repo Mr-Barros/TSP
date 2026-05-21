@@ -16,9 +16,13 @@ private:
         int from;
         int to;
         int cost;
+        int id;
 
+        static inline int uniqueID = 0;
         bool operator>(const Edge& other) const;
     };
+
+    void createNewEdge(std::vector<std::vector<Edge>>& graph, int from, int to, int cost);
 
     std::vector<std::vector<Edge>> minimumSpanningTree(std::vector<std::vector<Edge>>& graph);
 
@@ -34,7 +38,7 @@ private:
     void eulerTourDfs(
         int u,
         std::vector<std::vector<Edge>>& graph,
-        std::set<std::pair<int, int>>& visEdges,
+        std::set<int>& visEdges,
         std::vector<int>& eulerTour
     );
 

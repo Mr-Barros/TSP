@@ -10,9 +10,9 @@ bool ChristofidesSolver::solve()
 {
     vector<vector<Edge>> graph(data.dimension);
     for (int from = 0; from < data.dimension; from++)
-        for (int to = 0; to < data.dimension; to++)
+        for (int to = from + 1; to < data.dimension; to++)
             if (data.costs[from][to] > 0)
-                graph[from].push_back(Edge(from, to, data.costs[from][to]));
+                createNewEdge(graph, from, to, data.costs[from][to]);
 
     vector<vector<Edge>> mst = minimumSpanningTree(graph);
     set<int> nodes = oddDegreeNodes(mst);
@@ -29,6 +29,13 @@ bool ChristofidesSolver::solve()
 bool ChristofidesSolver::Edge::operator>(const Edge &other) const
 {
     return cost > other.cost;
+}
+
+void ChristofidesSolver::createNewEdge(vector<vector<Edge>>& graph, int from, int to, int cost)
+{
+    graph[from].push_back(Edge(from, to, cost, Edge::uniqueID));
+    graph[to].push_back(Edge(to, from, cost, Edge::uniqueID));
+    Edge::uniqueID++;
 }
 
 vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::minimumSpanningTree(vector<vector<Edge>>& graph)
@@ -50,8 +57,7 @@ vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::minimumSpanningTree
         if (included[e.to])
             continue;
 
-        mst[e.from].push_back(Edge(e.from, e.to, e.cost));
-        mst[e.to].push_back(Edge(e.to, e.from, e.cost));
+        createNewEdge(mst, e.from, e.to, e.cost);
 
         u = e.to;
         included[u] = true;
@@ -90,9 +96,9 @@ vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(
         Edge e = edges.top();
         edges.pop();
 
-        if (nodes.contains(e.from) and nodes.contains(e.to)) {
-            matching[e.from].push_back(Edge(e.from, e.to, e.cost));
-            matching[e.to].push_back(Edge(e.to, e.from, e.cost));
+        if (nodes.contains(e.from) and nodes.contains(e.to))
+        {
+            createNewEdge(matching, e.from, e.to, e.cost);
             nodes.erase(e.from);
             nodes.erase(e.to);
         }
@@ -108,34 +114,25 @@ vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIntoMultigra
     int size = max(graph1.size(), graph2.size());
     vector<vector<Edge>> multigraph(size);
 
-    for (int u = 0; u < graph1.size(); u++) {
-        for (Edge edge : graph1[u]) {
+    for (int u = 0; u < graph1.size(); u++)
+        for (Edge edge : graph1[u])
             multigraph[u].push_back(edge);
-        }
-    }
 
-    for (int u = 0; u < graph2.size(); u++) {
-        for (Edge edge : graph2[u]) {
+    for (int u = 0; u < graph2.size(); u++)
+        for (Edge edge : graph2[u])
             multigraph[u].push_back(edge);
-        }
-    }
 
     return multigraph;
 }
 
-void ChristofidesSolver::eulerTourDfs(
-    int u,
-    vector<vector<Edge>> &graph,
-    set<pair<int, int>> &visEdges,
-    vector<int> &eulerTour
-) {
-    for (int i = 0; i < graph[u].size(); i++)
+void ChristofidesSolver::eulerTourDfs(int u, vector<vector<Edge>> &graph, set<int> &visEdges, vector<int> &eulerTour)
+{
+    for (Edge edge : graph[u])
     {
-        pair<int, int> edgeID = make_pair(u, i);
-        if (visEdges.contains(edgeID))
+        if (visEdges.contains(edge.id))
             continue;
-        visEdges.insert(edgeID);
-        eulerTourDfs(graph[u][i].to, graph, visEdges, eulerTour);
+        visEdges.insert(edge.id);
+        eulerTourDfs(edge.to, graph, visEdges, eulerTour);
     }
     eulerTour.push_back(u);
 }
@@ -143,7 +140,7 @@ void ChristofidesSolver::eulerTourDfs(
 vector<int> ChristofidesSolver::findEulerTour(vector<vector<Edge>> &graph)
 {
     vector<int> eulerTour;
-    set<pair<int, int>> visEdges;
+    set<int> visEdges;
     eulerTourDfs(0, graph, visEdges, eulerTour);
     ranges::reverse(eulerTour);
     return eulerTour;
