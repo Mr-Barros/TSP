@@ -82,9 +82,9 @@ vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::perfectMatching(vec
     return matching;
 }
 
-std::vector<std::vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIntoMultigraph(
-    std::vector<std::vector<Edge>> &graph1,
-    std::vector<std::vector<Edge>> &graph2
+vector<vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIntoMultigraph(
+    vector<vector<Edge>> &graph1,
+    vector<vector<Edge>> &graph2
 ) {
     int size = max(graph1.size(), graph2.size());
     vector<vector<Edge>> multigraph(size);
@@ -100,13 +100,15 @@ std::vector<std::vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIn
             multigraph[u].push_back(edge);
         }
     }
+
+    return multigraph;
 }
 
 void ChristofidesSolver::eulerTourDfs(
     int u,
-    std::vector<std::vector<Edge>> &graph,
-    std::set<std::pair<int, int>> &visEdges,
-    std::vector<int> &eulerTour
+    vector<vector<Edge>> &graph,
+    set<pair<int, int>> &visEdges,
+    vector<int> &eulerTour
 ) {
     for (int i = 0; i < graph[u].size(); i++)
     {
@@ -119,7 +121,7 @@ void ChristofidesSolver::eulerTourDfs(
     eulerTour.push_back(u);
 }
 
-std::vector<int> ChristofidesSolver::findEulerTour(std::vector<std::vector<Edge>> &graph)
+vector<int> ChristofidesSolver::findEulerTour(vector<vector<Edge>> &graph)
 {
     vector<int> eulerTour;
     set<pair<int, int>> visEdges;
