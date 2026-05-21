@@ -101,7 +101,7 @@ void Loader::buildEdges() const
 
 void Loader::readBKS() const
 {
-	ifstream fin_bks("data/bks.txt");
+	ifstream fin_bks("../data/bks.txt");
 	if (!fin_bks.is_open()) return;
 
 	while (true)
