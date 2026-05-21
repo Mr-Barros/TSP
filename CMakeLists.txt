@@ -39,4 +39,6 @@ add_executable(tsp
         src/input/Parameters.cpp
         src/input/Parameters.h
         src/algorithm/ChristofidesSolver.cpp
-        src/algorithm/ChristofidesSolver.h)
+        src/algorithm/ChristofidesSolver.h
+        src/algorithm/SimulatedAnnealingSolver.cpp
+        src/algorithm/SimulatedAnnealingSolver.h)

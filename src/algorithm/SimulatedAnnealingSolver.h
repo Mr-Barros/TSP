@@ -1,9 +1,9 @@
 #pragma once
+
 #include "AbstractSolver.h"
 
-class Neighborhood;
+class SimulatedAnnealingSolver : public AbstractSolver {
+public:
 
-class SimulatedAnnealingSolver: public AbstractSolver
-{
-
+    bool solve() override;
 };
