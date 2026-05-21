@@ -17,10 +17,11 @@ public:
         GRASP,
         VariableNeighborhoodDecent,
         Christofides,
+        SimulatedAnnealing
     };
 
     std::string inputFile = "data/eil101.tsp";
-    SolverType solverType = Christofides;
+    SolverType solverType = SimulatedAnnealing;
 
 private:
     static bool help(const std::string& msg = "");

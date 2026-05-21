@@ -8,6 +8,7 @@
 #include "RandomSolver.h"
 #include "NearestNeighborSolver.h"
 #include "GraspSolver.h"
+#include "SimulatedAnnealingSolver.h"
 #include "VNDSolver.h"
 
 using namespace std;
@@ -22,6 +23,7 @@ bool Solver::solve()
 	case Parameters::GRASP: solver = new GraspSolver(); break;
 	case Parameters::VariableNeighborhoodDecent: solver = new VNDSolver(); break;
 	case Parameters::Christofides: solver = new ChristofidesSolver(); break;
+	case Parameters::SimulatedAnnealing: solver = new SimulatedAnnealingSolver(); break;
 	default: throw runtime_error("Unknown solver type");
 	}
 
