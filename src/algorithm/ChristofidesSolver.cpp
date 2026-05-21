@@ -129,3 +129,18 @@ vector<int> ChristofidesSolver::findEulerTour(vector<vector<Edge>> &graph)
     ranges::reverse(eulerTour);
     return eulerTour;
 }
+
+vector<int> ChristofidesSolver::convertIntoTSPTour(vector<int> eulerTour)
+{
+    vector<int> tspTour;
+    set<int> visited;
+
+    for (int u : eulerTour) {
+        if (visited.contains(u))
+            continue;
+        tspTour.push_back(u);
+        visited.insert(u);
+    }
+
+    return tspTour;
+}
