@@ -1,12 +1,18 @@
 #include "SimulatedAnnealingSolver.h"
 
+#include <iostream>
+
+#include "NearestNeighborSolver.h"
 #include "util/Random.h"
+
+using namespace std;
 
 bool SimulatedAnnealingSolver::solve()
 {
+    constructiveSolver->solve();
+    solution = constructiveSolver->solution;
+    solution.evaluate();
     Solution currentSolution = solution;
-
-    currentSolution.evaluate();
 
     double temperature = 10000;
     double decayRate = 0.995;
@@ -29,6 +35,7 @@ bool SimulatedAnnealingSolver::solve()
         temperature *= decayRate;
     }
 
+    cout << "SimulatedAnnealingSolver: " << solution << endl;
     return true;
 }
 
