@@ -8,7 +8,7 @@ using namespace std;
 
 bool ChristofidesSolver::solve()
 {
-    vector<vector<Edge>> graph;
+    vector<vector<Edge>> graph(data.dimension);
     for (int from = 0; from < data.dimension; from++)
         for (int to = 0; to < data.dimension; to++)
             if (data.costs[from][to] > 0)
