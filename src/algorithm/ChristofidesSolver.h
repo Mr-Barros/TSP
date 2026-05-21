@@ -30,4 +30,13 @@ private:
         std::vector<std::vector<Edge>>& graph1,
         std::vector<std::vector<Edge>>& graph2
     );
+
+    void eulerTourDfs(
+        int u,
+        std::vector<std::vector<Edge>>& graph,
+        std::set<std::pair<int, int>>& visEdges,
+        std::vector<int>& eulerTour
+    );
+
+    std::vector<int> findEulerTour(std::vector<std::vector<Edge>>& graph);
 };

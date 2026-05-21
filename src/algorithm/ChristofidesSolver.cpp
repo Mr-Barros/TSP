@@ -101,3 +101,29 @@ std::vector<std::vector<ChristofidesSolver::Edge>> ChristofidesSolver::combineIn
         }
     }
 }
+
+void ChristofidesSolver::eulerTourDfs(
+    int u,
+    std::vector<std::vector<Edge>> &graph,
+    std::set<std::pair<int, int>> &visEdges,
+    std::vector<int> &eulerTour
+) {
+    for (int i = 0; i < graph[u].size(); i++)
+    {
+        pair<int, int> edgeID = make_pair(u, i);
+        if (visEdges.contains(edgeID))
+            continue;
+        visEdges.insert(edgeID);
+        eulerTourDfs(graph[u][i].to, graph, visEdges, eulerTour);
+    }
+    eulerTour.push_back(u);
+}
+
+std::vector<int> ChristofidesSolver::findEulerTour(std::vector<std::vector<Edge>> &graph)
+{
+    vector<int> eulerTour;
+    set<pair<int, int>> visEdges;
+    eulerTourDfs(0, graph, visEdges, eulerTour);
+    ranges::reverse(eulerTour);
+    return eulerTour;
+}
