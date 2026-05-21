@@ -16,10 +16,11 @@ public:
         NearestNeighbor,
         GRASP,
         VariableNeighborhoodDecent,
+        Christofides,
     };
 
     std::string inputFile = "data/eil101.tsp";
-    SolverType solverType = VariableNeighborhoodDecent;
+    SolverType solverType = Christofides;
 
 private:
     static bool help(const std::string& msg = "");

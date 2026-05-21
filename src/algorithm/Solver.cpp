@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 
+#include "ChristofidesSolver.h"
 #include "input/Parameters.h"
 
 #include "RandomSolver.h"
@@ -20,6 +21,7 @@ bool Solver::solve()
 	case Parameters::NearestNeighbor: solver = new NearestNeighborSolver(); break;
 	case Parameters::GRASP: solver = new GraspSolver(); break;
 	case Parameters::VariableNeighborhoodDecent: solver = new VNDSolver(); break;
+	case Parameters::Christofides: solver = new ChristofidesSolver(); break;
 	default: throw runtime_error("Unknown solver type");
 	}
 
